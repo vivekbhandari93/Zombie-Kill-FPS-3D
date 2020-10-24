@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
         hitPoints -= damage;
         if (hitPoints <= Mathf.Epsilon)
         {
-            Debug.Log(gameObject.name + " is eatten by zombies!!!");
+            GetComponent<DeathHandler>().HandleDeath();
         }
     }
 }

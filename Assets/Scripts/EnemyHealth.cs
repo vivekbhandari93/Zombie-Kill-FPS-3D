@@ -9,9 +9,9 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         hitPoints -= damage;
+        BroadcastMessage("OnDamageTaken");
         if(hitPoints <= Mathf.Epsilon)
         {
-
             GetComponent<Animator>().SetTrigger("fall");
             Destroy(gameObject, 5f);
         }
