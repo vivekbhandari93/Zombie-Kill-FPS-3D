@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
 
 public class Weapon : MonoBehaviour
 {
@@ -13,17 +12,41 @@ public class Weapon : MonoBehaviour
     [SerializeField] ParticleSystem muzzleVFX;
     [SerializeField] GameObject hitVFX;
 
+    [SerializeField] Ammo ammoSlot;
+
+    [SerializeField] float timeBetweenShots = 0f;
+
+    bool canShoot = true;
+
+    private void OnEnable()
+    {
+        canShoot = true;
+    }
+
     private void Update()
     {
-        if (CrossPlatformInputManager.GetButtonDown("Fire1"))
+        if (Input.GetMouseButtonDown(0) && canShoot)
         {
-            Shoot();
-            PlayMuzzleVFX();
+            StartCoroutine(Shoot());
             
         }
     }
 
-    private void Shoot()
+    IEnumerator  Shoot()
+    {
+        canShoot = false;
+
+        if (ammoSlot.LeftAmmo() > 0)
+        {
+            ProcessRaycast();
+            PlayMuzzleVFX();
+            ammoSlot.ReduceAmmo();
+        }
+        yield return new WaitForSeconds(timeBetweenShots);
+        canShoot = true;
+    }
+
+    private void ProcessRaycast()
     {
         RaycastHit hit;
         if (Physics.Raycast(FPCamera.transform.position, FPCamera.transform.forward, out hit, range))
@@ -31,7 +54,7 @@ public class Weapon : MonoBehaviour
             PlayHitVFX(hit);
 
             EnemyHealth target = hit.transform.GetComponent<EnemyHealth>();
-            if(target == null) { return; }
+            if (target == null) { return; }
             target.TakeDamage(damage);
         }
     }
