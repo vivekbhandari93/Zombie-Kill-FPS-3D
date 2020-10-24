@@ -11,7 +11,9 @@ public class EnemyHealth : MonoBehaviour
         hitPoints -= damage;
         if(hitPoints <= Mathf.Epsilon)
         {
-            Destroy(gameObject);
+
+            GetComponent<Animator>().SetTrigger("fall");
+            Destroy(gameObject, 5f);
         }
     }
 }
