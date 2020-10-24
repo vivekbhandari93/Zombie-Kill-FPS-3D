@@ -342,7 +342,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddfdc9323220d3442a0aa1eaf30b482d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoAmount: 10
+  ammoSlots:
+  - ammoType: 0
+    ammoAmount: 20
+  - ammoType: 1
+    ammoAmount: 6
+  - ammoType: 2
+    ammoAmount: 10
 --- !u!114 &502215828181546372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,6 +367,7 @@ MonoBehaviour:
   muzzleVFX: {fileID: 7614796476126369964}
   hitVFX: {fileID: 3071402725548454677, guid: 5a25370140765b3419f6f37879a501e1, type: 3}
   ammoSlot: {fileID: 6622736459307344963}
+  ammoType: 1
   timeBetweenShots: 2
 --- !u!114 &583571990
 MonoBehaviour:
@@ -380,6 +387,7 @@ MonoBehaviour:
   muzzleVFX: {fileID: 7614796476126369964}
   hitVFX: {fileID: 3071402725548454677, guid: 5a25370140765b3419f6f37879a501e1, type: 3}
   ammoSlot: {fileID: 6622736459307344963}
+  ammoType: 2
   timeBetweenShots: 0
 --- !u!114 &3305046535755812044
 MonoBehaviour:
@@ -417,6 +425,7 @@ MonoBehaviour:
   muzzleVFX: {fileID: 7614796476126369964}
   hitVFX: {fileID: 3071402725548454677, guid: 5a25370140765b3419f6f37879a501e1, type: 3}
   ammoSlot: {fileID: 6622736459307344963}
+  ammoType: 0
   timeBetweenShots: 0
 --- !u!1 &8850825442742298162
 GameObject:
@@ -464,6 +473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b28a68db6ddbc24c94d4f6c90d656a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeapon: 0
 --- !u!1001 &47318160401511680
 PrefabInstance:
   m_ObjectHideFlags: 0

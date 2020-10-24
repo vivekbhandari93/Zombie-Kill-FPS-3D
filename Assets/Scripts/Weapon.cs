@@ -13,6 +13,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] GameObject hitVFX;
 
     [SerializeField] Ammo ammoSlot;
+    [SerializeField] AmmoType ammoType; 
 
     [SerializeField] float timeBetweenShots = 0f;
 
@@ -28,19 +29,18 @@ public class Weapon : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canShoot)
         {
             StartCoroutine(Shoot());
-            
+
         }
     }
 
-    IEnumerator  Shoot()
+    IEnumerator Shoot()
     {
         canShoot = false;
 
-        if (ammoSlot.LeftAmmo() > 0)
+        if (ammoSlot.LeftAmmo(ammoType) > 0)
         {
             ProcessRaycast();
             PlayMuzzleVFX();
-            ammoSlot.ReduceAmmo();
         }
         yield return new WaitForSeconds(timeBetweenShots);
         canShoot = true;
@@ -51,6 +51,7 @@ public class Weapon : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(FPCamera.transform.position, FPCamera.transform.forward, out hit, range))
         {
+            ammoSlot.ReduceAmmo(ammoType);
             PlayHitVFX(hit);
 
             EnemyHealth target = hit.transform.GetComponent<EnemyHealth>();
